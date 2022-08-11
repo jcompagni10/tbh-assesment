@@ -1,0 +1,8 @@
+{"dev": {
+    "user": "postgres",
+    "driver": "postgres",
+    "password": "pass",
+    "host": "localhost",
+    "database": "tbh",
+    "port": "5432"}
+}

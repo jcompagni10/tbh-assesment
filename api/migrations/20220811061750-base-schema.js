@@ -32,7 +32,7 @@ exports.up = function(db, cb) {
             user_email: 'string',
             session_id: 'int',
             answers: 'text[]'}),
-        db.createTable.bind(db, 'session-forms', {
+        db.createTable.bind(db, 'session_forms', {
             session_id: "int",
             form_id: 'int'})
     ], cb);

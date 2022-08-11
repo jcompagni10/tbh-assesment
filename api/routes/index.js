@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
+var forms = require('../db');
 
-router.get("/", function(req, res, next) {
-    res.send("API is working properly2");
-});
+router.get("/form/:formID", async function(req, res, next) {
+    let formID = req.params.formID;
+    let form = await forms.getFormForSession(formID);
+    res.json(form);});
 
-router.get("/test", function(req, res, next) {
-    res.send("this is a test page4");
-});
+
 
 
 module.exports = router;
+

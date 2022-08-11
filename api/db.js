@@ -4,6 +4,7 @@ const credentials = {
     user: "postgres",
     host: "localhost",
     password: "pass",
+    database: "tbh",
     port: 5432,
 };
 
@@ -12,34 +13,23 @@ const credentials = {
 async function clientQuery(query) {
     let  client = new Client(credentials);
     await client.connect();
-    let  res = await client.query(query);
+    let  resp = await client.query(query);
     await client.end();
-
-    return res;
+    return resp;
 }
 
 
-const SCHEMA = `CREATE TABLE forms
- (id bigint,
-  questions bigint[]);
-CREATE TABLE questions
- (id bigint,
-  type text,
-  values text[])`;
+async function getFormForSession(sessionId){
+    let query =
+   `SELECT label, type, values
+    FROM session_forms
+    INNER JOIN forms on session_forms.form_id = forms.id
+    INNER JOIN questions on questions.id = ANY (forms.questions)
+    WHERE session_id = ${sessionId}`;
 
-function createSchema(){
-    clientQuery(SCHEMA).then(console.log);
+    let result = await clientQuery(query);
+    return result.rows;
 }
 
 
-function resetDB (){
-    return clientQuery("SELECT 'DROP TABLE IF EXISTS \"' || tablename || '\" CASCADE;'");
-}
-
-
-function setupDB(){
-    resetDB().then(()=> createSchema());
-}
-
-
-setupDB();
+module.exports = {getFormForSession};

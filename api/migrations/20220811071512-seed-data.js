@@ -20,9 +20,9 @@ exports.up = function(db, callback) {
     async.series([
         (cb)=>(db.insert('forms', ["questions"], ["{1, 2, 3}"], cb(null, true))),
         (cb)=>(db.insert('questions', ["label", "type", "values"],
-                                                   ["[Question 1....]", "radio", "{'true', 'false'}"], cb(null, true))),
+                                                   ["[Question 1....]", "radio", "{true, false}"], cb(null, true))),
         (cb)=>(db.insert('questions', ["label", "type", "values"],
-                             ["[Question 2 ....]", "checkbox", "{'somewhat', 'mostly', 'a bit'}"], cb(null, true))),
+                             ["[Question 2 ....]", "checkbox", "{somewhat, mostly, a bit}"], cb(null, true))),
         (cb)=>(db.insert('questions', ["label", "type"],
                          ["[Question 3 ....]", "text"], cb(null, true))),
         (cb)=>(db.insert('session_forms', ["session_id", "form_id"],

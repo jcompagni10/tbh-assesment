@@ -43,7 +43,7 @@ exports.down = function(db, cb) {
         db.dropTable.bind(db, 'forms'),
         db.dropTable.bind(db, 'questions'),
         db.dropTable.bind(db, 'submissions'),
-        db.dropTable.bind(db, 'session-forms'),
+        db.dropTable.bind(db, 'session_forms'),
     ], cb);
 };
 

@@ -31,7 +31,4 @@ function run(statement){
 }
 
 
-
-
-execQuery().then(console.log);
 module.exports = {execQuery, run};

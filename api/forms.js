@@ -29,7 +29,6 @@ questions."values", form_questions.question_id
 
 
 async function handleSubmission(data){
-    console.log(data);
     // TODO: Add validation
     let {session_id, email} = data;
     delete data.email;
@@ -41,7 +40,6 @@ async function handleSubmission(data){
 }
 
 async function retriveSubmission(sessionID, email){
-    console.log(sessionID, email);
     let query = `SELECT *
                  FROM submissions
                  WHERE  user_email = '${email}' AND session_id = '${sessionID}' `;

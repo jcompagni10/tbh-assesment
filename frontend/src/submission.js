@@ -8,14 +8,16 @@ function SubmissionTable(props){
     if (data) {
         return (
             <table>
-                {Object.entries(data).map(([k, v]) => {
-                    return (
-                        <tr>
-                            <td style = {style}> {k} </td>
-                            <td style = {style}> {v} </td>
-                        </tr>
-                    )
-                })}
+                <tbody>
+                    {Object.entries(data).map(([k, v]) => {
+                        return (
+                            <tr key = {k}>
+                                <td style = {style}> {k} </td>
+                                <td style = {style}> {v} </td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
             </table>
         );
     }
@@ -38,7 +40,7 @@ export default function Submission() {
         <main style={{ padding: "1rem 0" }}>
             <h3> Submission </h3>
             <SubmissionTable data = {val}/>
-            <SubmissionTable data = {JSON.parse(val.answers)}/>
+            <SubmissionTable data = {val && JSON.parse(val.answers)}/>
         </main>
     );
 }

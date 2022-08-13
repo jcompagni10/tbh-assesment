@@ -1,8 +1,9 @@
 {"dev": {
-    "user": "postgres",
-    "driver": "postgres",
+    "user": "sqlite3",
+    "driver": "sqlite3",
     "password": "pass",
     "host": "localhost",
     "database": "tbh",
+    "filename": "db.sqlite3",
     "port": "5432"}
 }

@@ -18,15 +18,15 @@ exports.setup = function(options, seedLink) {
 
 exports.up = function(db, callback) {
     async.series([
-        (cb)=>(db.insert('forms', ["questions"], ["{1, 2, 3}"], cb(null, true))),
+        (cb)=>(db.insert('form_questions', ["form_id", "question_id", "ord"], [1, 1, 1], cb(null, true))),
+        (cb)=>(db.insert('form_questions', ["form_id", "question_id", "ord"], [1, 2, 2], cb(null, true))),
+        (cb)=>(db.insert('form_questions', ["form_id", "question_id", "ord"], [1, 3, 3], cb(null, true))),
         (cb)=>(db.insert('questions', ["label", "type", "values"],
-                                                   ["[Question 1....]", "radio", "{true, false}"], cb(null, true))),
+                                                   ["Is this a true/false question?", "radio", "['true', 'false']"], cb(null, true))),
         (cb)=>(db.insert('questions', ["label", "type", "values"],
-                             ["[Question 2 ....]", "checkbox", "{somewhat, mostly, a bit}"], cb(null, true))),
-        (cb)=>(db.insert('questions', ["label", "type"],
-                         ["[Question 3 ....]", "text"], cb(null, true))),
-        (cb)=>(db.insert('session_forms', ["session_id", "form_id"],
-                         ["123", 1], cb(null, true)))
+                         ["Is this a beautiful website", "checkbox", "['Absolutely', 'Totally', 'Yes', 'Definitely']"], cb(null, true))),
+        (cb)=>(db.insert('questions', ["label", "type"], ["How is your day going?", "text"], cb(null, true))),
+        (cb)=>(db.insert('session_forms', ["session_id", "form_id"], ["123", 1], cb(null, true)))
     ], callback);
 };
 

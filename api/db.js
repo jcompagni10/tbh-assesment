@@ -1,35 +1,37 @@
-const { Client } = require('pg');
+const sqlite3 = require('sqlite3').verbose();
 
-const credentials = {
-    user: "postgres",
-    host: "localhost",
-    password: "pass",
-    database: "tbh",
-    port: 5432,
-};
+const DBSOURCE = "./db.sqlite3";
 
+let db = new sqlite3.Database(DBSOURCE);
 
+function execQuery(query) {
+    return new Promise(function(resolve, reject) {
+        db.all(query, (err, rows)  =>{
+            if(err){
+                console.log("ERROR: ", err.message);
+            }
+            else {
+                resolve(rows);
+            }
+        });
+    });
+}
 
-async function clientQuery(query) {
-    let  client = new Client(credentials);
-    await client.connect();
-    let  resp = await client.query(query);
-    await client.end();
-    return resp;
+function run(statement){
+        return new Promise(function(resolve, reject) {
+            db.run(statement, (err, rows)  =>{
+                if(err){
+                    console.log("ERROR: ", err.message);
+                }
+                else {
+                    resolve(rows);
+                }
+            });
+        });
 }
 
 
-async function getFormForSession(sessionId){
-    let query =
-   `SELECT label, type, values
-    FROM session_forms
-    INNER JOIN forms on session_forms.form_id = forms.id
-    INNER JOIN questions on questions.id = ANY (forms.questions)
-    WHERE session_id = ${sessionId}`;
-
-    let result = await clientQuery(query);
-    return result.rows;
-}
 
 
-module.exports = {getFormForSession};
+execQuery().then(console.log);
+module.exports = {execQuery, run};

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useParams, Link } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 
 function SubmissionTable(props){
@@ -36,11 +36,14 @@ export default function Submission() {
     useEffect(()=> {
         fetchSubmission();
     }, []);
+    if (val){
     return(
         <main style={{ padding: "1rem 0" }}>
             <h3> Submission </h3>
-            <SubmissionTable data = {val}/>
-            <SubmissionTable data = {val && JSON.parse(val.answers)}/>
+            <h4> Raw Data </h4>
+            <SubmissionTable data = {val.metadata}/>
+            <h4> Pretty Answers </h4>
+            <SubmissionTable data = {val.answers}/>
         </main>
-    );
+    );}
 }

@@ -1,10 +1,10 @@
-docker run \
-      --name postgres \
-      -e POSTGRES_PASSWORD=pass \
-      -p 5432:5432 \
-      -d postgres
+## Run Project 
+### Starting Server
+    $ cd api && npm install\
+    && npx db-migrate up\
+    && npm start
+    
+### Starting React Projcet
 
-
- docker exec -ti -u postgres postgres psql
- 
- create database tbh;
+    $ cd frontend && npm install\
+    && npm start

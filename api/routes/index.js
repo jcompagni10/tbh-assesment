@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var forms = require('../db');
+var forms = require('../forms');
 
 router.get("/form/:formID", async function(req, res, next) {
     let formID = req.params.formID;
@@ -15,6 +15,11 @@ router.post("/form/", function(req, res, next) {
     res.json({status: 200});
 });
 
+router.get("/submission/:sessionID/:email", async function(req, res, next) {
+    let {sessionID, email} = req.params;
+    let submission = await forms.retriveSubmission(sessionID, email);
+    res.json(submission);
+});
 
 
 
